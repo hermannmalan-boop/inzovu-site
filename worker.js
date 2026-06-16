@@ -40,16 +40,24 @@ export default {
             messages.push({ role: m.role, content: m.content.slice(0, 2000) });
           }
         }
-        const ai = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
-          messages,
-          max_tokens: 512,
-          temperature: 0.3
-        });
-        const reply = (ai && (ai.response || ai.result)) || "Désolé, je n'ai pas pu générer de réponse. Écrivez-nous à info@inzovu.africa.";
-        return Response.json({ reply }, { headers: { "Cache-Control": "no-store" } });
+        var MODELS = [
+          "@cf/meta/llama-3.1-8b-instruct-fast",
+          "@cf/zai-org/glm-4.7-flash",
+          "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+        ];
+        var reply = "";
+        for (var i = 0; i < MODELS.length; i++) {
+          try {
+            var ai = await env.AI.run(MODELS[i], { messages: messages, max_tokens: 512, temperature: 0.3 });
+            reply = (ai && (ai.response || ai.result)) || "";
+            if (reply) break;
+          } catch (err) { /* essaie le modèle suivant */ }
+        }
+        if (!reply) reply = "Désolé, je n'ai pas pu générer de réponse pour le moment. Écrivez-nous à info@inzovu.africa.";
+        return Response.json({ reply: reply }, { headers: { "Cache-Control": "no-store" } });
       } catch (e) {
         return Response.json(
-          { reply: "Une erreur est survenue. Réessayez, ou contactez-nous à info@inzovu.africa.", debug: String((e && e.message) || e), hasAI: !!env.AI },
+          { reply: "Une erreur est survenue. Réessayez, ou contactez-nous à info@inzovu.africa." },
           { status: 200 }
         );
       }
