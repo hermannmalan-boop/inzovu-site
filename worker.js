@@ -46,18 +46,21 @@ export default {
           "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
         ];
         var reply = "";
+        var errs = [];
         for (var i = 0; i < MODELS.length; i++) {
           try {
             var ai = await env.AI.run(MODELS[i], { messages: messages, max_tokens: 512, temperature: 0.3 });
             reply = (ai && (ai.response || ai.result)) || "";
             if (reply) break;
-          } catch (err) { /* essaie le modèle suivant */ }
+          } catch (err) { errs.push(MODELS[i] + ": " + String((err && err.message) || err)); }
         }
-        if (!reply) reply = "Désolé, je n'ai pas pu générer de réponse pour le moment. Écrivez-nous à info@inzovu.africa.";
+        if (!reply) {
+          return Response.json({ reply: "Désolé, je n'ai pas pu générer de réponse pour le moment. Écrivez-nous à info@inzovu.africa.", debug: errs }, { headers: { "Cache-Control": "no-store" } });
+        }
         return Response.json({ reply: reply }, { headers: { "Cache-Control": "no-store" } });
       } catch (e) {
         return Response.json(
-          { reply: "Une erreur est survenue. Réessayez, ou contactez-nous à info@inzovu.africa." },
+          { reply: "Une erreur est survenue. Réessayez, ou contactez-nous à info@inzovu.africa.", debug2: String((e && e.message) || e) },
           { status: 200 }
         );
       }
