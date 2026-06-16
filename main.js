@@ -122,4 +122,91 @@
         });
     });
   }
+
+  /* ===== Assistant IA INZOVU (widget de chat) ===== */
+  (function () {
+    var history = [];
+    var open = false;
+    var busy = false;
+
+    var launcher = document.createElement("button");
+    launcher.className = "ai-launcher";
+    launcher.setAttribute("aria-label", "Ouvrir l'assistant INZOVU");
+    launcher.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.6-.8L3 21l1.9-5.7A8.38 8.38 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>';
+
+    var panel = document.createElement("div");
+    panel.className = "ai-panel";
+    panel.innerHTML =
+      '<div class="ai-head">' +
+        '<div class="ai-head-id"><span class="ai-dot"></span><div><b>Assistant INZOVU</b><span>Réponses sur nos produits</span></div></div>' +
+        '<button class="ai-close" aria-label="Fermer">&times;</button>' +
+      '</div>' +
+      '<div class="ai-msgs" id="ai-msgs"></div>' +
+      '<form class="ai-input"><textarea rows="1" placeholder="Posez votre question…" aria-label="Votre message"></textarea>' +
+      '<button type="submit" aria-label="Envoyer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button></form>';
+
+    document.body.appendChild(launcher);
+    document.body.appendChild(panel);
+
+    var msgs = panel.querySelector(".ai-msgs");
+    var ta = panel.querySelector("textarea");
+    var form = panel.querySelector(".ai-input");
+
+    function addMsg(role, text) {
+      var d = document.createElement("div");
+      d.className = "ai-msg ai-" + role;
+      d.textContent = text;
+      msgs.appendChild(d);
+      msgs.scrollTop = msgs.scrollHeight;
+      return d;
+    }
+
+    function toggle(state) {
+      open = (typeof state === "boolean") ? state : !open;
+      panel.classList.toggle("open", open);
+      launcher.classList.toggle("hidden", open);
+      if (open && !msgs.childElementCount) {
+        addMsg("assistant", "Bonjour 👋 Je suis l'assistant INZOVU. Posez-moi vos questions sur SIGEFIP, IMIRIMO, IMARIPRO ou nos services.");
+      }
+      if (open) setTimeout(function () { ta.focus(); }, 100);
+    }
+
+    launcher.addEventListener("click", function () { toggle(true); });
+    panel.querySelector(".ai-close").addEventListener("click", function () { toggle(false); });
+
+    ta.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); }
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var text = ta.value.trim();
+      if (!text || busy) return;
+      busy = true;
+      ta.value = "";
+      addMsg("user", text);
+      history.push({ role: "user", content: text });
+      var typing = addMsg("assistant", "…");
+      typing.classList.add("ai-typing");
+
+      fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: history })
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          var reply = (data && data.reply) || "Désolé, une erreur est survenue.";
+          typing.classList.remove("ai-typing");
+          typing.textContent = reply;
+          history.push({ role: "assistant", content: reply });
+          msgs.scrollTop = msgs.scrollHeight;
+        })
+        .catch(function () {
+          typing.classList.remove("ai-typing");
+          typing.textContent = "Connexion impossible. Réessayez, ou écrivez-nous à info@inzovu.africa.";
+        })
+        .then(function () { busy = false; });
+    });
+  })();
 })();
