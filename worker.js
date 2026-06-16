@@ -49,7 +49,7 @@ export default {
         return Response.json({ reply }, { headers: { "Cache-Control": "no-store" } });
       } catch (e) {
         return Response.json(
-          { reply: "Une erreur est survenue. Réessayez, ou contactez-nous à info@inzovu.africa." },
+          { reply: "Une erreur est survenue. Réessayez, ou contactez-nous à info@inzovu.africa.", debug: String((e && e.message) || e), hasAI: !!env.AI },
           { status: 200 }
         );
       }
