@@ -428,6 +428,8 @@ p { color: var(--grey-700); }
   color: var(--grey-500); white-space: nowrap; transition: color 0.3s;
 }
 .client-track span:hover { color: var(--black); }
+.client-track .client-logo { height: 50px; width: auto; object-fit: contain; opacity: 0.6; filter: grayscale(1); transition: opacity 0.35s, filter 0.35s; }
+.client-track .client-logo:hover { opacity: 1; filter: none; }
 @keyframes clientScroll { to { transform: translateX(-50%); } }
 
 /* Respect de la préférence "réduire les animations" */
