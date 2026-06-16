@@ -111,11 +111,11 @@
             setNote("Merci ! Votre message a bien été envoyé. Notre équipe vous répondra sous 24h ouvrées.", "var(--accent-dark)");
             form.reset();
           } else {
-            setNote("Une erreur est survenue. Réessayez ou écrivez-nous à info@inzovuafrica.com.", "#b00020");
+            setNote("Une erreur est survenue. Réessayez ou écrivez-nous à servicecommercial@inzovuafrica.com.", "#b00020");
           }
         })
         .catch(function () {
-          setNote("Connexion impossible. Réessayez ou écrivez-nous à info@inzovuafrica.com.", "#b00020");
+          setNote("Connexion impossible. Réessayez ou écrivez-nous à servicecommercial@inzovuafrica.com.", "#b00020");
         })
         .then(function () {
           if (btn) { btn.disabled = false; btn.style.opacity = "1"; }
@@ -204,7 +204,7 @@
         })
         .catch(function () {
           typing.classList.remove("ai-typing");
-          typing.textContent = "Connexion impossible. Réessayez, ou écrivez-nous à info@inzovuafrica.com.";
+          typing.textContent = "Connexion impossible. Réessayez, ou écrivez-nous à servicecommercial@inzovuafrica.com.";
         })
         .then(function () { busy = false; });
     });
