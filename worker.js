@@ -15,12 +15,13 @@ SERVICES
 Développement sur mesure (web & mobile), intégration de systèmes (ERP, CRM, APIs, Mobile Money : MTN, Orange Money, Wave), architecture Cloud & DevOps (AWS, GCP, Azure), Data & Business Intelligence, expérience utilisateur (UX) & design, sécurité & conformité (RGPD), conseil en transformation numérique, fournitures informatiques B2B, maintenance & support.
 
 DÉMO
-Une démonstration est disponible sur demande (plateforme : secure.app.sigefip.com). Invite l'utilisateur à demander une démo ou à contacter l'équipe.
+Une démonstration est disponible sur demande. Invite l'utilisateur à demander une démo via la page Contact ou à écrire à info@inzovu.africa.
 
 RÈGLES
 - Réponds dans la langue de l'utilisateur (français par défaut), de façon concise, claire et professionnelle.
 - Réponds uniquement sur INZOVU AFRICA, ses produits et services. Si la question est hors sujet, recentre poliment.
 - N'invente jamais de prix, de chiffres ou de fonctionnalités non listés ci-dessus ; si tu ne sais pas, propose de contacter l'équipe (info@inzovu.africa) ou de demander une démo.
+- Ne communique JAMAIS d'adresse de plateforme technique, de lien de connexion ou d'URL interne (par exemple des adresses du type secure.*, app.* ou …sigefip.com). Pour accéder à une démo, renvoie uniquement vers la page Contact ou info@inzovu.africa.
 - Termine, quand c'est pertinent, en proposant une démo ou la page Contact.`;
 
 export default {
@@ -54,13 +55,11 @@ export default {
             if (reply) break;
           } catch (err) { errs.push(MODELS[i] + ": " + String((err && err.message) || err)); }
         }
-        if (!reply) {
-          return Response.json({ reply: "Désolé, je n'ai pas pu générer de réponse pour le moment. Écrivez-nous à info@inzovu.africa.", debug: errs }, { headers: { "Cache-Control": "no-store" } });
-        }
+        if (!reply) reply = "Désolé, je n'ai pas pu générer de réponse pour le moment. Écrivez-nous à info@inzovu.africa.";
         return Response.json({ reply: reply }, { headers: { "Cache-Control": "no-store" } });
       } catch (e) {
         return Response.json(
-          { reply: "Une erreur est survenue. Réessayez, ou contactez-nous à info@inzovu.africa.", debug2: String((e && e.message) || e) },
+          { reply: "Une erreur est survenue. Réessayez, ou contactez-nous à info@inzovu.africa." },
           { status: 200 }
         );
       }
