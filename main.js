@@ -45,20 +45,24 @@
     revealEls.forEach(function (el) { el.classList.add("in"); });
   }
 
-  /* Animated counters */
+  /* Animated counters — valeur finale garantie même si l'animation saccade */
   function animate(el) {
+    if (el.dataset.done) return;
     var target = parseFloat(el.getAttribute("data-count"));
     var suffix = el.getAttribute("data-suffix") || "";
-    var dur = 1600, start = null;
+    var dur = 1600, start = null, done = false;
+    function finish() { if (done) return; done = true; el.dataset.done = "1"; el.textContent = target + suffix; }
     function step(ts) {
+      if (done) return;
       if (!start) start = ts;
       var p = Math.min((ts - start) / dur, 1);
       var eased = 1 - Math.pow(1 - p, 3);
       el.textContent = Math.floor(eased * target) + suffix;
-      if (p < 1) requestAnimationFrame(step);
-      else el.textContent = target + suffix;
+      if (p < 1) requestAnimationFrame(step); else finish();
     }
     requestAnimationFrame(step);
+    // Filet de sécurité : impose la valeur finale même si rAF est gelé/throttlé
+    setTimeout(finish, dur + 600);
   }
   var counters = document.querySelectorAll("[data-count]");
   if ("IntersectionObserver" in window && counters.length) {
@@ -66,8 +70,17 @@
       entries.forEach(function (e) {
         if (e.isIntersecting) { animate(e.target); co.unobserve(e.target); }
       });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.25 });
     counters.forEach(function (el) { co.observe(el); });
+    // Si déjà visibles au chargement (ou observer capricieux), garantir l'animation
+    setTimeout(function () {
+      counters.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < (window.innerHeight || 0) && r.bottom > 0) animate(el);
+      });
+    }, 1200);
+  } else {
+    counters.forEach(function (el) { el.textContent = el.getAttribute("data-count") + (el.getAttribute("data-suffix") || ""); });
   }
 
   /* Current year */
