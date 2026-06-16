@@ -403,6 +403,25 @@ p { color: var(--grey-700); }
 /* Cadres d'application (captures produit, style Apple) */
 .app-frame { border-radius: 16px; overflow: hidden; background: #fff; border: 1px solid var(--grey-100); box-shadow: 0 34px 80px -34px rgba(0,0,0,0.5); transition: transform 0.4s var(--transition); }
 .app-frame:hover { transform: translateY(-6px); }
+
+/* Cartes produits (accueil) — animation soignée */
+#produits .product { position: relative; overflow: hidden; }
+#produits .product::after { content: ""; position: absolute; left: 0; top: 0; height: 3px; width: 0; background: var(--accent); transition: width 0.45s var(--transition); }
+#produits .product:hover::after { width: 100%; }
+#produits .product:hover { transform: translateY(-8px); box-shadow: var(--shadow); transition-delay: 0s; }
+#produits .product .badge { transition: transform 0.45s var(--transition), background 0.35s, color 0.35s; }
+#produits .product:hover .badge { background: var(--accent); color: var(--black); transform: rotate(-4deg) scale(1.06); }
+#produits .product .more { display: inline-flex; align-items: center; gap: 9px; margin-top: 18px; font-weight: 600; font-size: 0.95rem; color: var(--black); transition: color 0.3s, gap 0.3s; }
+#produits .product .more svg { width: 18px; height: 18px; flex: none; transition: transform 0.35s var(--transition); }
+#produits .product:hover .more { color: var(--accent-dark); gap: 14px; }
+#produits .product:hover .more svg { transform: translateX(5px); }
+/* Entrée en cascade */
+#produits .grid .product { transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+#produits .grid .product:nth-child(1) { transition-delay: 0.05s; }
+#produits .grid .product:nth-child(2) { transition-delay: 0.18s; }
+#produits .grid .product:nth-child(3) { transition-delay: 0.31s; }
+/* sécurité : flèches .more jamais surdimensionnées */
+.more svg { width: 18px; height: 18px; flex: none; }
 .app-frame .bar { height: 34px; background: #f4f4f5; border-bottom: 1px solid var(--grey-100); display: flex; align-items: center; gap: 7px; padding: 0 14px; }
 .app-frame .bar i { width: 11px; height: 11px; border-radius: 50%; background: #d6d6da; display: block; }
 .app-frame img { width: 100%; height: auto; display: block; }
