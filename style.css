@@ -400,6 +400,12 @@ p { color: var(--grey-700); }
 }
 @media (prefers-reduced-motion: reduce) { .hero-video { display: none; } }
 
+/* Vidéo en fond des hero internes (ex. À propos) */
+.page-hero.has-video .hero-video { opacity: 0.4; z-index: 0; }
+.page-hero.has-video::before { z-index: 1; }
+.page-hero.has-video::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(13,13,13,0.7), rgba(13,13,13,0.92)); }
+.page-hero.has-video .container { position: relative; z-index: 2; }
+
 /* Filigrane du logo (éléphant + Afrique) animé dans le hero */
 .hero-watermark {
   position: absolute; top: 50%; left: 50%;
