@@ -357,16 +357,20 @@ p { color: var(--grey-700); }
 
 @media (max-width: 820px) {
   .nav-menu {
-    position: fixed; top: 76px; right: 0; bottom: 0; width: min(82vw, 340px);
-    background: var(--white); flex-direction: column; align-items: stretch; gap: 4px;
-    padding: 24px; box-shadow: var(--shadow); transform: translateX(110%);
-    transition: var(--transition); overflow-y: auto;
+    position: fixed; inset: 0; z-index: 990; width: 100%;
+    background: var(--white); flex-direction: column; align-items: stretch; gap: 0;
+    padding: 92px 22px 40px; box-shadow: none;
+    transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+    overflow-y: auto;
   }
   .nav-menu.open { transform: translateX(0); }
-  .nav-menu > li > a { padding: 14px 16px; font-size: 1.05rem; }
-  .dropdown-menu { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: 0; border-left: 2px solid var(--grey-100); border-radius: 0; margin: 4px 0 8px 16px; padding: 0; }
-  .dropdown-menu a { padding: 10px 14px; }
-  .nav-toggle { display: block; }
+  .nav-menu > li { border-bottom: 1px solid var(--grey-100); }
+  .nav-menu > li > a { padding: 16px 4px; font-size: 1.15rem; border-radius: 0; justify-content: space-between; }
+  .nav-menu > li > a:hover, .nav-menu > li > a.active { background: transparent; color: var(--accent-dark); }
+  .dropdown-menu { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: 0; border-left: 2px solid var(--grey-100); border-radius: 0; margin: 2px 0 12px 14px; padding: 0; }
+  .dropdown-menu a { padding: 11px 14px; }
+  .dropdown-menu strong { font-size: 0.92rem; }
+  .nav-toggle { display: block; position: relative; z-index: 1001; }
   .nav-cta .btn { display: none; }
 }
 
@@ -412,6 +416,7 @@ p { color: var(--grey-700); }
 .ai-launcher svg { width: 28px; height: 28px; }
 .ai-launcher:hover { transform: translateY(-3px) scale(1.05); background: var(--black); color: var(--accent); }
 .ai-launcher.hidden { transform: scale(0); opacity: 0; pointer-events: none; }
+body.nav-open .ai-launcher { opacity: 0; pointer-events: none; }
 @keyframes aiPulse { 0%,100% { box-shadow: 0 14px 34px -10px rgba(224,163,60,0.6); } 50% { box-shadow: 0 14px 44px -6px rgba(224,163,60,0.9); } }
 
 .ai-panel {

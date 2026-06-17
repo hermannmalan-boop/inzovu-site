@@ -18,6 +18,7 @@
     toggle.addEventListener("click", function () {
       var open = menu.classList.toggle("open");
       toggle.classList.toggle("open", open);
+      document.body.classList.toggle("nav-open", open);
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
       document.body.style.overflow = open ? "hidden" : "";
     });
@@ -26,6 +27,7 @@
         if (menu.classList.contains("open") && !a.parentElement.classList.contains("dropdown")) {
           menu.classList.remove("open");
           toggle.classList.remove("open");
+          document.body.classList.remove("nav-open");
           document.body.style.overflow = "";
         }
       });
