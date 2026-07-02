@@ -19,11 +19,16 @@
   --accent-soft: #fbf3e3;
 
   --font-sans: "Inter", "Segoe UI", Arial, sans-serif;
+  --font-display: "Sora", "Inter", "Segoe UI", Arial, sans-serif;
+  --surface: #faf8f4;         /* tint chaud subtil */
+  --line: #ececec;
   --maxw: 1200px;
-  --radius: 14px;
-  --radius-sm: 8px;
-  --shadow: 0 18px 50px -25px rgba(0, 0, 0, 0.45);
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-sm: 10px;
+  --shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.42);
   --shadow-sm: 0 8px 24px -16px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 30px 70px -30px rgba(224, 163, 60, 0.45);
   --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -46,10 +51,10 @@ img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
 
-h1, h2, h3, h4 { line-height: 1.15; font-weight: 800; color: var(--black); letter-spacing: -0.02em; }
-h1 { font-size: clamp(2.3rem, 5vw, 4rem); }
-h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem); }
-h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
+h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.12; font-weight: 700; color: var(--black); letter-spacing: -0.03em; }
+h1 { font-size: clamp(2.3rem, 5vw, 4.1rem); font-weight: 800; }
+h2 { font-size: clamp(1.9rem, 3.6vw, 3rem); }
+h3 { font-size: clamp(1.2rem, 2vw, 1.55rem); }
 p { color: var(--grey-700); }
 
 /* ---------- Layout helpers ---------- */
@@ -561,3 +566,81 @@ body.nav-open .ai-launcher { opacity: 0; pointer-events: none; }
   .hero-watermark { animation: none; opacity: 0.08; }
   .client-track { animation: none; }
 }
+
+/* ============================================================
+   DESIGN REFRESH v2 — direction senior (typo Sora, hero,
+   cartes, boutons, surfaces, micro-interactions)
+   ============================================================ */
+
+/* — Eyebrow : kicker avec filet ambre — */
+.eyebrow { position: relative; display: inline-flex; align-items: center; gap: 12px; font-size: 0.74rem; letter-spacing: 0.24em; }
+.eyebrow::before { content: ""; width: 26px; height: 2px; background: var(--accent); border-radius: 2px; display: inline-block; }
+.center .eyebrow, .section-head.center .eyebrow { justify-content: center; }
+
+/* — Titres de section : plus de présence — */
+.section-head h2 { letter-spacing: -0.035em; }
+.section-head p { color: var(--grey-700); font-size: 1.12rem; line-height: 1.7; }
+
+/* — HERO : mot d'accent en dégradé or + halo — */
+.hero h1 { letter-spacing: -0.04em; }
+.hero h1 .accent {
+  background: linear-gradient(120deg, #f3c76a 0%, var(--accent) 45%, #c98b28 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: var(--accent);
+}
+.hero .eyebrow { color: var(--accent); }
+.hero .eyebrow::before { background: var(--accent); }
+/* badges hero en pastilles */
+.hero-badges { gap: 12px 14px; }
+.hero-badge {
+  border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.04);
+  padding: 9px 15px; border-radius: 100px; backdrop-filter: blur(4px);
+  transition: var(--transition);
+}
+.hero-badge:hover { border-color: rgba(224,163,60,0.5); background: rgba(224,163,60,0.08); }
+
+/* — BOUTONS : plus premium — */
+.btn { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; padding: 15px 30px; }
+.btn--primary { box-shadow: 0 12px 30px -14px rgba(0,0,0,0.55); }
+.btn--accent { box-shadow: 0 14px 32px -14px rgba(224,163,60,0.7); }
+.btn--accent:hover { box-shadow: 0 18px 40px -14px rgba(0,0,0,0.5); }
+
+/* — CARTES services : ring + glow + accent au survol — */
+.card { border-radius: var(--radius-lg); border-color: var(--line); position: relative; overflow: hidden; }
+.card::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: linear-gradient(160deg, rgba(224,163,60,0.5), transparent 40%); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.4s; }
+.card:hover { transform: translateY(-8px); box-shadow: var(--shadow); border-color: transparent; }
+.card:hover::before { opacity: 1; }
+.card .ic { border-radius: 16px; background: linear-gradient(150deg, #1c1c1c, var(--black)); box-shadow: inset 0 1px 0 rgba(255,255,255,0.06); }
+.card h3 { font-size: 1.25rem; }
+
+/* — PRODUCT cards (accueil) — */
+.product { border-radius: var(--radius-lg); border-color: var(--line); }
+.product .badge { border-radius: 20px; background: linear-gradient(150deg, #1c1c1c, var(--black)); box-shadow: inset 0 1px 0 rgba(255,255,255,0.06); }
+
+/* — SECTIONS : surface chaude alternée + dark raffiné — */
+.section--grey { background: var(--surface); }
+.section--dark { background: radial-gradient(1100px 600px at 78% -10%, rgba(224,163,60,0.14), transparent 60%), var(--black); }
+
+/* — STATS : chiffres en display — */
+.stat .num { font-family: var(--font-display); letter-spacing: -0.04em; }
+
+/* — DROPDOWN & header : finitions — */
+.dropdown-menu { border-radius: 16px; border-color: var(--line); }
+.dropdown-menu strong { font-family: var(--font-display); }
+.nav-menu > li > a { font-weight: 500; }
+
+/* — QUOTE / témoignages — */
+.quote { border-radius: var(--radius-lg); border-color: var(--line); transition: var(--transition); }
+.quote:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: transparent; }
+.quote .avatar { background: linear-gradient(150deg, #1c1c1c, var(--black)); }
+
+/* — Divider fin sur les CTA sombres — */
+.cta-band h2 { letter-spacing: -0.035em; }
+
+/* — FORM : focus ring ambre — */
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(224,163,60,0.15); }
+
+/* — SÉLECTION texte — */
+::selection { background: rgba(224,163,60,0.28); }
+
+/* — Titre app-frame : ombre plus douce déjà OK ; hover glow léger — */
+.app-frame:hover { box-shadow: var(--shadow-glow); }
