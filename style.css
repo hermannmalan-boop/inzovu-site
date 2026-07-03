@@ -30,6 +30,8 @@
   --shadow-sm: 0 8px 24px -16px rgba(0, 0, 0, 0.4);
   --shadow-glow: 0 30px 70px -30px rgba(224, 163, 60, 0.45);
   --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);      /* décélération douce */
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.5, 1);  /* léger dépassement */
 }
 
 /* ---------- Reset ---------- */
@@ -644,3 +646,64 @@ body.nav-open .ai-launcher { opacity: 0; pointer-events: none; }
 
 /* — Titre app-frame : ombre plus douce déjà OK ; hover glow léger — */
 .app-frame:hover { box-shadow: var(--shadow-glow); }
+
+/* ============================================================
+   MOTION LAYER — animations soignées (esprit Emil Kowalski)
+   Mouvement au service du sens : révélations discrètes,
+   easings ressort, feedback de clic, transitions soyeuses.
+   ============================================================ */
+
+/* Révélation au scroll — plus discrète (rise court + fondu + léger flou→net) */
+.reveal { opacity: 0; transform: translateY(14px); filter: blur(4px);
+  transition: opacity 0.55s var(--ease-out), transform 0.65s var(--ease-out), filter 0.55s var(--ease-out); will-change: opacity, transform; }
+.reveal.in { opacity: 1; transform: none; filter: none; }
+
+/* Cascade douce pour des groupes d'éléments révélés côte à côte */
+.grid .reveal:nth-child(2), .stats .reveal:nth-child(2) { transition-delay: 0.06s; }
+.grid .reveal:nth-child(3) { transition-delay: 0.12s; }
+.grid .reveal:nth-child(4) { transition-delay: 0.18s; }
+
+/* Boutons — hover en ressort + vrai feedback de pression */
+.btn { transition: background 0.3s var(--ease-out), color 0.3s var(--ease-out), transform 0.35s var(--ease-spring), box-shadow 0.35s var(--ease-out); }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0) scale(0.97); transition-duration: 0.09s; }
+.btn svg { transition: transform 0.35s var(--ease-spring); }
+.btn--accent:hover svg, .btn--primary:hover svg { transform: translateX(3px); }
+
+/* Cartes / témoignages / produits — lift en ressort + pression */
+.card, .quote, .product, #produits .product { transition: transform 0.45s var(--ease-spring), box-shadow 0.45s var(--ease-out), border-color 0.35s var(--ease-out); }
+.card:hover, .quote:hover, #produits .product:hover { transform: translateY(-8px); }
+.card:active, .quote:active, #produits .product:active { transform: translateY(-3px) scale(0.995); transition-duration: 0.12s; }
+
+/* Icônes des cartes — petit rebond au survol */
+.card .ic { transition: transform 0.45s var(--ease-spring), background 0.35s var(--ease-out), color 0.35s var(--ease-out); }
+.card:hover .ic { transform: translateY(-3px) rotate(-4deg); }
+
+/* Liens « En savoir plus » — flèche qui glisse en ressort */
+.card .more svg, .more svg { transition: transform 0.4s var(--ease-spring); }
+.card:hover .more svg { transform: translateX(5px); }
+
+/* Menu déroulant — apparition plus soyeuse */
+.dropdown-menu { transition: opacity 0.28s var(--ease-out), visibility 0.28s var(--ease-out), transform 0.34s var(--ease-spring); }
+
+/* Liens de navigation — souligné animé qui grandit du centre */
+.nav-menu > li > a { position: relative; }
+.nav-menu > li > a::after { content: ""; position: absolute; left: 16px; right: 16px; bottom: 6px; height: 2px; background: var(--accent); border-radius: 2px; transform: scaleX(0); transform-origin: center; transition: transform 0.32s var(--ease-spring); opacity: 0; }
+.nav-menu > li > a:hover::after, .nav-menu > li > a.active::after { transform: scaleX(1); opacity: 1; }
+
+/* Pastilles clients / badges hero — survol vivant */
+.hero-badge { transition: transform 0.35s var(--ease-spring), border-color 0.3s var(--ease-out), background 0.3s var(--ease-out); }
+.hero-badge:hover { transform: translateY(-2px); }
+
+/* Lanceur de l'assistant IA — pression */
+.ai-launcher:active { transform: scale(0.92); transition-duration: 0.1s; }
+
+/* Champs de formulaire — focus fluide (le ring est déjà défini) */
+.field input, .field select, .field textarea { transition: border-color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out); }
+
+/* Accessibilité : couper le mouvement si l'utilisateur le demande */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important; }
+  .btn, .card, .quote, .product, #produits .product, .card .ic, .btn svg, .more svg, .nav-menu > li > a::after, .hero-badge { transition: none !important; }
+  .btn:hover, .card:hover, .quote:hover, #produits .product:hover, .btn:active, .card:active { transform: none !important; }
+}
