@@ -707,3 +707,49 @@ body.nav-open .ai-launcher { opacity: 0; pointer-events: none; }
   .btn, .card, .quote, .product, #produits .product, .card .ic, .btn svg, .more svg, .nav-menu > li > a::after, .hero-badge { transition: none !important; }
   .btn:hover, .card:hover, .quote:hover, #produits .product:hover, .btn:active, .card:active { transform: none !important; }
 }
+
+/* ============================================================
+   MOTION LAYER v2 — polish senior
+   Barre de progression, reflet boutons, cascade par index,
+   zoom doux des visuels. Restraint = qualité.
+   ============================================================ */
+
+/* Barre de progression de lecture (fine, en haut) */
+.scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 1300;
+  background: linear-gradient(90deg, var(--accent), #f3c76a); transform: scaleX(0); transform-origin: 0 50%;
+  will-change: transform; pointer-events: none; }
+
+/* Cascade des révélations pilotée par index (--i posé en JS) */
+.reveal { transition-delay: calc(var(--i, 0) * 0.07s); }
+
+/* Zoom doux des visuels à la révélation (images, cadres, box média) */
+.app-frame.reveal, .split-media.reveal, .sc-media.reveal, .showcase .row.reveal img,
+.hero-visual.reveal { transform: translateY(16px) scale(0.965); }
+.app-frame.reveal.in, .split-media.reveal.in, .sc-media.reveal.in, .hero-visual.reveal.in { transform: none; }
+.app-frame, .split-media, .sc-media { transition: transform 0.7s var(--ease-out), box-shadow 0.4s var(--ease-out), opacity 0.7s var(--ease-out), filter 0.6s var(--ease-out); }
+
+/* Reflet qui glisse sur les boutons pleins au survol */
+.btn--accent, .btn--primary { position: relative; overflow: hidden; }
+.btn--accent > *, .btn--primary > * { position: relative; z-index: 1; }
+.btn--accent::before, .btn--primary::before { content: ""; position: absolute; top: 0; left: -120%; width: 60%; height: 100%; z-index: 0;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.45), transparent); transform: skewX(-18deg); transition: none; }
+.btn--accent:hover::before, .btn--primary:hover::before { animation: btnSheen 0.85s var(--ease-out); }
+@keyframes btnSheen { to { left: 130%; } }
+
+/* Carte : la barre d'accent supérieure grandit aussi sur .card au survol */
+.card { position: relative; }
+.card > .ic ~ * { position: relative; }
+
+/* Puces animées des listes de features au survol de la carte produit */
+.product ul.feats li::before { transition: transform 0.3s var(--ease-spring); }
+.product:hover ul.feats li::before { transform: scale(1.4); }
+
+/* Flèche du breadcrumb / liens internes — soulignés doux */
+.breadcrumb a, .info-item a, .f-links a { transition: color 0.25s var(--ease-out); }
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress { display: none !important; }
+  .app-frame.reveal, .split-media.reveal, .sc-media.reveal, .hero-visual.reveal { transform: none !important; }
+  .btn--accent::before, .btn--primary::before { display: none !important; }
+  .reveal { transition-delay: 0s !important; }
+}

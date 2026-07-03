@@ -34,8 +34,36 @@
     });
   }
 
-  /* Scroll reveal */
+  /* Barre de progression de lecture */
+  (function () {
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+    var bar = document.createElement("div");
+    bar.className = "scroll-progress";
+    document.body.appendChild(bar);
+    function update() {
+      var h = document.documentElement;
+      var max = (h.scrollHeight - h.clientHeight) || 1;
+      var p = Math.min(Math.max(h.scrollTop / max, 0), 1);
+      bar.style.transform = "scaleX(" + p + ")";
+    }
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  })();
+
+  /* Scroll reveal — avec cascade par index (--i) */
   var revealEls = document.querySelectorAll(".reveal");
+  revealEls.forEach(function (el) {
+    var parent = el.parentElement;
+    if (!parent) return;
+    var group = Array.prototype.filter.call(parent.children, function (c) {
+      return c.classList && c.classList.contains("reveal");
+    });
+    if (group.length > 1) {
+      el.style.setProperty("--i", Math.min(group.indexOf(el), 6));
+    }
+  });
   if ("IntersectionObserver" in window && revealEls.length) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
