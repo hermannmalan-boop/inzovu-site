@@ -153,6 +153,66 @@
     });
   }
 
+  /* ===== WhatsApp — bouton flottant + envoi du formulaire ===== */
+  (function () {
+    var WA_NUMBER = "2250708021992"; // +225 07 08 02 19 92
+    var waBase = "https://wa.me/" + WA_NUMBER;
+
+    // Bouton flottant (toutes les pages)
+    var fab = document.createElement("a");
+    fab.className = "wa-fab";
+    fab.href = waBase + "?text=" + encodeURIComponent("Bonjour INZOVU AFRICA, je vous écris depuis votre site web.");
+    fab.target = "_blank";
+    fab.rel = "noopener";
+    fab.setAttribute("aria-label", "Nous écrire sur WhatsApp");
+    fab.innerHTML =
+      '<svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.7.9 3.6 1.4 5.6 1.4h.2c6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-4.9 1 1-4.7-.3-.4c-1-1.6-1.5-3.4-1.5-5.3C4.9 9.9 9.9 4.9 16 4.9S27.1 9.9 27.1 15 22.1 24.8 16 24.8zm6-7.4c-.3-.2-1.9-1-2.2-1.1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.3-.2-.3 0-.5.1-.7.1-.1.3-.4.5-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.6-.1-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.1 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.2-.6-.4z"/></svg>' +
+      '<span class="wa-label">Écrivez-nous sur WhatsApp</span>';
+    document.body.appendChild(fab);
+
+    // Formulaire de contact → WhatsApp
+    var cform = document.getElementById("contact-form");
+    if (cform) {
+      var submitBtn = cform.querySelector('button[type="submit"]');
+      var val = function (name) {
+        var el = cform.querySelector('[name="' + name + '"]');
+        return el ? el.value.trim() : "";
+      };
+      var or = document.createElement("p");
+      or.className = "form-or";
+      or.textContent = "— ou —";
+      var waBtn = document.createElement("button");
+      waBtn.type = "button";
+      waBtn.className = "btn btn--wa";
+      waBtn.style.width = "100%";
+      waBtn.style.justifyContent = "center";
+      waBtn.innerHTML = 'Envoyer sur WhatsApp <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.7.9 3.6 1.4 5.6 1.4h.2c6.6 0 12-5.4 12-12S22.6 3 16 3z"/></svg>';
+      waBtn.addEventListener("click", function () {
+        if (typeof cform.reportValidity === "function" && !cform.checkValidity()) {
+          cform.reportValidity();
+          return;
+        }
+        var lines = [
+          "Bonjour INZOVU AFRICA, demande depuis le site :",
+          "",
+          "Nom : " + val("nom"),
+          val("entreprise") ? "Organisation : " + val("entreprise") : "",
+          "Email : " + val("email"),
+          val("tel") ? "Téléphone : " + val("tel") : "",
+          "Sujet : " + val("sujet"),
+          "",
+          "Message :",
+          val("message")
+        ].filter(function (l) { return l !== ""; });
+        window.open(waBase + "?text=" + encodeURIComponent(lines.join("\n")), "_blank", "noopener");
+      });
+      if (submitBtn) {
+        submitBtn.insertAdjacentElement("afterend", waBtn);
+        waBtn.insertAdjacentElement("beforebegin", or);
+      }
+    }
+  })();
+
   /* ===== Assistant IA INZOVU (widget de chat) ===== */
   (function () {
     var history = [];

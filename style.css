@@ -753,3 +753,39 @@ body.nav-open .ai-launcher { opacity: 0; pointer-events: none; }
   .btn--accent::before, .btn--primary::before { display: none !important; }
   .reveal { transition-delay: 0s !important; }
 }
+
+/* ============================================================
+   WhatsApp — bouton flottant (click-to-chat) + bouton formulaire
+   ============================================================ */
+.wa-fab {
+  position: fixed; left: 22px; bottom: 22px; z-index: 1200;
+  display: inline-flex; align-items: center; gap: 0; overflow: hidden;
+  height: 58px; width: 58px; padding: 0; border-radius: 100px;
+  background: #25D366; color: #fff; text-decoration: none;
+  box-shadow: 0 14px 34px -10px rgba(37,211,102,0.6);
+  transition: width 0.4s var(--ease-spring), background 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+  white-space: nowrap;
+}
+.wa-fab svg { width: 30px; height: 30px; flex: none; margin: 14px; }
+.wa-fab .wa-label { opacity: 0; max-width: 0; font-weight: 600; font-size: 0.95rem; transition: opacity 0.3s var(--ease-out), max-width 0.4s var(--ease-out); }
+.wa-fab:hover { width: 210px; }
+.wa-fab:hover .wa-label { opacity: 1; max-width: 160px; padding-right: 20px; }
+.wa-fab:active { transform: scale(0.94); }
+.wa-fab::after {
+  content: ""; position: absolute; inset: 0; border-radius: 100px;
+  box-shadow: 0 0 0 0 rgba(37,211,102,0.5); animation: waPulse 2.6s ease-out infinite; pointer-events: none;
+}
+@keyframes waPulse { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.5); } 70% { box-shadow: 0 0 0 16px rgba(37,211,102,0); } 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); } }
+body.nav-open .wa-fab { opacity: 0; pointer-events: none; }
+
+/* Bouton WhatsApp dans le formulaire de contact */
+.btn--wa { background: #25D366; color: #fff; border-color: #25D366; }
+.btn--wa:hover { background: #1da851; color: #fff; border-color: #1da851; transform: translateY(-2px); }
+.btn--wa svg { width: 20px; height: 20px; }
+.form-or { text-align: center; font-size: 0.82rem; color: var(--grey-500); margin: 14px 0 4px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+@media (max-width: 620px) {
+  .wa-fab { left: 16px; bottom: 16px; height: 52px; width: 52px; }
+  .wa-fab svg { width: 26px; height: 26px; margin: 13px; }
+}
+@media (prefers-reduced-motion: reduce) { .wa-fab::after { animation: none !important; } }
