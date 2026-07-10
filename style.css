@@ -127,7 +127,7 @@ p { color: var(--grey-700); }
 .brand small { display: block; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.22em; color: var(--grey-500); text-transform: uppercase; }
 .brand-logo { height: 46px; width: auto; display: block; }
 .site-header { background: rgba(255,255,255,0.95); }
-.site-header .brand-logo { height: 46px; filter: invert(1); }
+.site-header .brand-logo { height: 42px; filter: none; }
 .footer-brand .brand-logo { height: 70px; margin-bottom: 18px; mix-blend-mode: lighten; }
 @media (max-width: 620px) { .brand-logo { height: 38px; } }
 
@@ -795,14 +795,14 @@ body.nav-open .wa-fab { opacity: 0; pointer-events: none; }
    Appliqué avec retenue ; le reste du site reste net.
    ============================================================ */
 
-/* En-tête : verre assumé */
+/* En-tête : barre claire nette (verre léger, sans effet "bande grise") */
 .site-header {
-  background: rgba(255, 255, 255, 0.72);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: saturate(160%) blur(16px);
+  backdrop-filter: saturate(160%) blur(16px);
 }
 .site-header.scrolled {
-  background: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 255, 255, 0.95);
   border-bottom-color: rgba(0, 0, 0, 0.06);
 }
 
