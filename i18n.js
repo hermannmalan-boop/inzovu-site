@@ -283,7 +283,25 @@
     "Déploiement cloud, formation, documentation, monitoring et évolutions continues.": "Cloud deployment, training, documentation, monitoring and continuous improvements.",
     "Un projet en tête ? Commençons à parler": "Got a project in mind? Let's talk",
     "Un atelier de cadrage nous permet de vous proposer un chiffrage juste et réaliste.": "A scoping workshop lets us offer you fair and realistic pricing.",
-    "Demander un devis": "Request a quote"
+    "Demander un devis": "Request a quote",
+
+    // Page Produits — IMARIPRO, galerie, CTA
+    "IMARIPRO couvre la comptabilité générale et analytique, la trésorerie, la facturation et le reporting financier, conformes aux référentiels": "IMARIPRO covers general and analytical accounting, treasury, invoicing and financial reporting, compliant with the",
+    "SYSCOHADA révisé": "revised SYSCOHADA",
+    "et": "and",
+    "(entités à but non lucratif). La solution idéale pour les entreprises, ONG et organisations qui veulent fiabiliser leurs comptes.": "(non-profit) standards. The ideal solution for companies, NGOs and organizations that want to make their accounts reliable.",
+    "Comptabilité conforme SYSCOHADA révisé & SYCEBNL": "Accounting compliant with revised SYSCOHADA & SYCEBNL",
+    "Gestion de trésorerie et facturation": "Treasury management and invoicing",
+    "Tableaux de bord et reporting financier en temps réel": "Dashboards and real-time financial reporting",
+    "En images": "In pictures",
+    "SIGEFIP en action": "SIGEFIP in action",
+    "Une interface claire et complète pour piloter budget, marchés et paiements de bout en bout.": "A clear, complete interface to manage budget, procurement and payments end to end.",
+    "Circuit de validation maîtrisé": "Controlled approval workflow",
+    "Bordereaux de transmission au Contrôle Financier, suivi des visas et traçabilité complète de chaque ordre de paiement.": "Transmittal slips to the Financial Control, visa tracking and full traceability of every payment order.",
+    "Besoin sur mesure ?": "Need something custom?",
+    "Nous développons aussi des solutions dédiées": "We also build dedicated solutions",
+    "Aucun de nos produits ne correspond exactement à votre besoin ? Parlons-en.": "None of our products fits your need exactly? Let's talk.",
+    "Voir nos services": "See our services"
   };
 
   var SKIP = { SCRIPT: 1, STYLE: 1, NOSCRIPT: 1 };
