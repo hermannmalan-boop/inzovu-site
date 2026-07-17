@@ -27,7 +27,7 @@
     "codée": "coded",
     "dans notre ADN.": "into our DNA.",
     "Inzovu conçoit des solutions logicielles sur mesure — applications web & mobile, systèmes de gestion, plateformes cloud — et modernise vos processus métiers grâce à l'IA, l'IoT et l'analyse de données.": "Inzovu designs custom software solutions — web & mobile apps, management systems, cloud platforms — and modernizes your business processes with AI, IoT and data analytics.",
-    "Rencontrez-nous": "Meet us",
+    "Rencontrez-nous": "Get in touch",
     "Expertise locale africaine": "Local African expertise",
     "Solutions sur mesure": "Tailored solutions",
     "Conformité & sécurité": "Compliance & security",
@@ -54,7 +54,7 @@
 
     // Split "Gagnez en performance"
     "Transformation digitale": "Digital transformation",
-    "Gagnez en performance et en productivité": "Gain in performance and productivity",
+    "Gagnez en performance et en productivité": "Enhance your performance and productivity",
     "Re-saisies, données obsolètes, processus contraints… La traçabilité de vos opérations devient un enjeu majeur vis-à-vis de l'État, de vos clients et de vos prestataires.": "Re-keying, outdated data, constrained processes… The traceability of your operations becomes a major stake with the State, your clients and your providers.",
     "Vous avez besoin de faire évoluer vos logiciels d'entreprise, mais ni le temps ni l'expérience pour mener ces projets. C'est là qu'Inzovu intervient.": "You need to evolve your enterprise software, but have neither the time nor the experience to run these projects. That is where Inzovu steps in.",
     "Élimination des doubles saisies": "Elimination of double data entry",
@@ -126,7 +126,7 @@
     "Produit 02": "Product 02",
     "Produit 03": "Product 03",
     "Système Intégré de Gestion Financière des Projets de Développement": "Integrated Financial Management System for Development Projects",
-    "SIGEFIP pilote l'ensemble du cycle financier des projets de développement : programmation budgétaire, engagements, décaissements, suivi des bailleurs et reporting. Une réponse aux exigences de traçabilité des ONG, agences publiques et programmes financés.": "SIGEFIP manages the entire financial cycle of development projects: budget planning, commitments, disbursements, donor tracking and reporting. An answer to the traceability requirements of NGOs, public agencies and funded programs.",
+    "SIGEFIP pilote l'ensemble du cycle financier des projets de développement : programmation budgétaire, engagements, décaissements, suivi des bailleurs et reporting. Une réponse aux exigences de traçabilité des ONG, agences publiques et programmes financés.": "SIGEFIP governs the entire financial cycle of development projects — budget programming, commitments, disbursements, donor monitoring and reporting — while meeting the traceability requirements of NGOs, public agencies and donor-funded programs.",
     "Budgétisation pluriannuelle et suivi des engagements": "Multi-year budgeting and commitment tracking",
     "Gestion des décaissements et des bailleurs de fonds": "Management of disbursements and donors",
     "Reporting financier conforme aux exigences des bailleurs": "Financial reporting compliant with donor requirements",
@@ -208,7 +208,7 @@
 
     // Page À propos
     "À propos d'Inzovu": "About Inzovu",
-    "La force de l'éléphant, au service du digital africain": "The strength of the elephant, serving African digital",
+    "La force de l'éléphant, au service du digital africain": "The elephant's strength, serving Africa's digital transformation",
     "Inzovu — « éléphant » en kinyarwanda — symbolise la force, la mémoire et la sagesse. Nous accompagnons entreprises, startups, ONG et institutions dans leur transformation digitale.": "Inzovu — 'elephant' in Kinyarwanda — embodies strength, memory and wisdom. We support companies, startups, NGOs and institutions in their digital transformation.",
     "Qui sommes-nous": "Who we are",
     "Une société africaine de développement logiciel sur mesure": "An African custom software development company",
@@ -244,7 +244,7 @@
     "Développement": "Development",
     "Web, mobile et back-end performants.": "High-performing web, mobile and back-end.",
     "Design & UX": "Design & UX",
-    "Interfaces claires et adoptées.": "Clear, well-adopted interfaces.",
+    "Interfaces claires et adoptées.": "Clear interfaces designed for adoption.",
     "Infrastructures fiables et scalables.": "Reliable, scalable infrastructures.",
     "Conseil & stratégie": "Consulting & strategy",
     "Feuilles de route digitales.": "Digital roadmaps.",
@@ -281,7 +281,7 @@
     "Choix technologiques, développement des modules, intégration d'API et mise en place des environnements de dev, test et production.": "Technology choices, module development, API integration and setup of dev, test and production environments.",
     "Tests unitaires, d'intégration, de performance et de sécurité, recette utilisateur et optimisation.": "Unit, integration, performance and security testing, user acceptance and optimization.",
     "Déploiement cloud, formation, documentation, monitoring et évolutions continues.": "Cloud deployment, training, documentation, monitoring and continuous improvements.",
-    "Un projet en tête ? Commençons à parler": "Got a project in mind? Let's talk",
+    "Un projet en tête ? Commençons à parler": "Have a project in mind? Let's begin the conversation",
     "Un atelier de cadrage nous permet de vous proposer un chiffrage juste et réaliste.": "A scoping workshop lets us offer you fair and realistic pricing.",
     "Demander un devis": "Request a quote",
 
@@ -289,18 +289,18 @@
     "IMARIPRO couvre la comptabilité générale et analytique, la trésorerie, la facturation et le reporting financier, conformes aux référentiels": "IMARIPRO covers general and analytical accounting, treasury, invoicing and financial reporting, compliant with the",
     "SYSCOHADA révisé": "revised SYSCOHADA",
     "et": "and",
-    "(entités à but non lucratif). La solution idéale pour les entreprises, ONG et organisations qui veulent fiabiliser leurs comptes.": "(non-profit) standards. The ideal solution for companies, NGOs and organizations that want to make their accounts reliable.",
+    "(entités à but non lucratif). La solution idéale pour les entreprises, ONG et organisations qui veulent fiabiliser leurs comptes.": "(non-profit entities). The ideal solution for companies, NGOs and organizations seeking to strengthen the reliability of their financial records.",
     "Comptabilité conforme SYSCOHADA révisé & SYCEBNL": "Accounting compliant with revised SYSCOHADA & SYCEBNL",
     "Gestion de trésorerie et facturation": "Treasury management and invoicing",
     "Tableaux de bord et reporting financier en temps réel": "Dashboards and real-time financial reporting",
-    "En images": "In pictures",
+    "En images": "A closer look",
     "SIGEFIP en action": "SIGEFIP in action",
     "Une interface claire et complète pour piloter budget, marchés et paiements de bout en bout.": "A clear, complete interface to manage budget, procurement and payments end to end.",
     "Circuit de validation maîtrisé": "Controlled approval workflow",
     "Bordereaux de transmission au Contrôle Financier, suivi des visas et traçabilité complète de chaque ordre de paiement.": "Transmittal slips to the Financial Control, visa tracking and full traceability of every payment order.",
-    "Besoin sur mesure ?": "Need something custom?",
-    "Nous développons aussi des solutions dédiées": "We also build dedicated solutions",
-    "Aucun de nos produits ne correspond exactement à votre besoin ? Parlons-en.": "None of our products fits your need exactly? Let's talk.",
+    "Besoin sur mesure ?": "A bespoke requirement?",
+    "Nous développons aussi des solutions dédiées": "We also develop dedicated solutions",
+    "Aucun de nos produits ne correspond exactement à votre besoin ? Parlons-en.": "If none of our products is an exact fit for your needs, let's discuss it.",
     "Voir nos services": "See our services"
   };
 
