@@ -304,6 +304,51 @@
     "Voir nos services": "See our services"
   };
 
+  Object.assign(M, {
+  "Abidjan · Solutions digitales pour les organisations": "Abidjan · Digital solutions for organizations",
+  "Vos métiers.": "Your business.",
+  "Des outils": "The right tools",
+  "à leur mesure.": "built around it.",
+  "Finance, paie, comptabilité ou applications sur mesure : INZOVU transforme vos processus en outils clairs, connectés et utiles au quotidien.": "Finance, payroll, accounting or custom applications: INZOVU turns your processes into clear, connected tools for everyday work.",
+  "Parlons de votre besoin": "Let’s discuss your needs",
+  "Explorer nos solutions": "Explore our solutions",
+  "Une équipe à Abidjan. Un accompagnement du cadrage au support.": "A team in Abidjan. Support from scoping to ongoing maintenance.",
+  "Votre point de départ": "Your starting point",
+  "Quel processus souhaitez-vous simplifier ?": "Which process would you like to simplify?",
+  "Piloter les finances de vos projets": "Manage your project finances",
+  "Organiser la paie et les ressources humaines": "Organize payroll and human resources",
+  "Structurer votre comptabilité et votre trésorerie": "Structure your accounting and cash management",
+  "Un besoin spécifique ? Construisons votre application.": "A specific need? Let’s build your application.",
+  "Logiciels métiers": "Business software",
+  "Applications sur mesure": "Custom applications",
+  "Des solutions concrètes pour vos enjeux métiers": "Practical solutions for your business needs",
+  "Connecter vos outils, fiabiliser vos données, simplifier vos opérations : nous partons de votre quotidien pour concevoir la bonne solution.": "Connect your tools, improve data reliability and simplify operations: we start with your everyday work to design the right solution.",
+  "Trois produits. Trois besoins essentiels.": "Three products. Three essential needs.",
+  "Choisissez votre point de départ : le suivi financier des projets, la gestion de la paie ou la comptabilité de votre organisation.": "Choose your starting point: project financial management, payroll or your organization’s accounting.",
+  "Du besoin métier à la solution opérationnelle": "From business needs to working solutions",
+  "Nous cadrons votre projet, développons les outils et accompagnons leur utilisation. Applications, intégration, cloud et support : une démarche adaptée à votre organisation.": "We scope your project, develop the tools and support their use. Applications, integration, cloud and support: an approach tailored to your organization.",
+  "Le bon logiciel pour le bon métier": "The right software for your business",
+  "Comparez SIGEFIP, IMIRIMO et IMARIPRO selon vos besoins. Découvrez leurs usages, puis échangeons sur votre contexte et les modules utiles à votre équipe.": "Compare SIGEFIP, IMIRIMO and IMARIPRO based on your needs. Explore their uses, then discuss your context and the modules your team needs.",
+  "Commençons par votre besoin": "Let’s start with your needs",
+  "Décrivez votre organisation, votre processus actuel et ce que vous souhaitez améliorer. Nous pourrons orienter l’échange vers une démo produit ou un projet sur mesure.": "Tell us about your organization, your current process and what you want to improve. We can guide the discussion toward a product demo or a custom project.",
+  "Votre prochain projet commence par un échange.": "Your next project starts with a conversation.",
+  "Présentez-nous vos objectifs. Identifions ensemble le produit ou l’accompagnement adapté.": "Tell us your goals. Let’s identify the right product or support together.",
+  "Choisir une solution": "Choose a solution",
+  "À chaque besoin, son point de départ.": "A starting point for every need.",
+  "Vous gérez des projets financés": "You manage funded projects",
+  "Budgets, marchés, paiements et suivi financier.": "Budgets, procurement, payments and financial tracking.",
+  "Découvrir SIGEFIP": "Explore SIGEFIP",
+  "Vous gérez des équipes": "You manage teams",
+  "Paie, congés et administration du personnel.": "Payroll, leave and personnel administration.",
+  "Découvrir IMIRIMO": "Explore IMIRIMO",
+  "Vous gérez une organisation": "You manage an organization",
+  "Comptabilité, trésorerie, facturation et reporting.": "Accounting, cash management, invoicing and reporting.",
+  "Découvrir IMARIPRO": "Explore IMARIPRO",
+  "Aller au contenu": "Skip to content",
+  "Votre activité, votre besoin, vos outils actuels…": "Your activity, your needs, your current tools…"
+});
+
+  Object.assign(M, {"La technologie au service de vos métiers": "Technology that serves your business"});
   var SKIP = { SCRIPT: 1, STYLE: 1, NOSCRIPT: 1 };
   var current = "fr";
 

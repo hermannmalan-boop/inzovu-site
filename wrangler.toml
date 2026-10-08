@@ -9,3 +9,18 @@ not_found_handling = "404-page"
 
 [ai]
 binding = "AI"
+
+# ---------------------------------------------------------------------------
+# Formulaire de contact (/api/contact) : envoi par Cloudflare Email, sans tiers.
+# À faire UNE FOIS dans le dashboard Cloudflare :
+#   1. Email > Email Routing : activer sur le domaine inzovuafrica.com
+#   2. Adresses de destination : ajouter et VÉRIFIER hermann.malan@inzovuafrica.com
+# Tant que ce n'est pas fait, /api/contact répond { error: "not_configured" }
+# et le site affiche le message de repli (écrire à servicecommercial@...).
+# ---------------------------------------------------------------------------
+[[send_email]]
+name = "CONTACT_EMAIL"
+
+[vars]
+CONTACT_TO = "hermann.malan@inzovuafrica.com"
+CONTACT_FROM = "contact@inzovuafrica.com"

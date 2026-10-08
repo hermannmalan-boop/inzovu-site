@@ -856,3 +856,10 @@ body.nav-open .wa-fab { opacity: 0; pointer-events: none; }
 @media (max-width: 620px) {
   .section--dark .stat { padding: 24px 12px; border-radius: 18px; }
 }
+
+/* ===== Consentement & mention d'information (formulaire de contact) ===== */
+.field.consent { margin-top: 6px; }
+.consent-label { display: flex; gap: 10px; align-items: flex-start; font-weight: 500; cursor: pointer; }
+.consent-label input[type="checkbox"] { width: 18px; height: 18px; margin-top: 3px; flex: 0 0 auto; accent-color: var(--accent, #C9A24B); }
+.form-notice { font-size: 0.82rem; line-height: 1.45; color: var(--grey-700, #555); margin: 8px 0 14px; }
+.form-notice a { text-decoration: underline; }

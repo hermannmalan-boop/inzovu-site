@@ -1,4 +1,4 @@
-// Worker INZOVU : sert le site statique + endpoint /api/chat (Cloudflare Workers AI)
+// Worker INZOVU : sert le site statique + /api/chat (Workers AI) + /api/contact (formulaire, Cloudflare Email)
 
 const SYSTEM_PROMPT = `Tu es « Assistant INZOVU », l'assistant virtuel officiel d'INZOVU AFRICA. Tu aides les visiteurs à comprendre l'offre et à entrer en contact.
 
@@ -57,6 +57,88 @@ Proximité & réactivité (même langue, même fuseau, même contexte), coût to
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    // ---------------------------------------------------------------------
+    // /api/contact : formulaire de contact -> e-mail via Cloudflare Email
+    // (aucun sous-traitant tiers : les données ne quittent pas Cloudflare).
+    // Prérequis (une fois) : binding [[send_email]] dans wrangler.toml et
+    // adresse de destination vérifiée dans Email Routing (dashboard Cloudflare).
+    // ---------------------------------------------------------------------
+    if (url.pathname === "/api/contact") {
+      if (request.method !== "POST") {
+        return new Response("Method Not Allowed", { status: 405 });
+      }
+      const json = (obj, status) => Response.json(obj, { status: status || 200, headers: { "Cache-Control": "no-store" } });
+      try {
+        // 1) Lecture des champs (FormData ou JSON)
+        let data = {};
+        const ct = request.headers.get("content-type") || "";
+        if (ct.includes("application/json")) {
+          data = await request.json();
+        } else {
+          const fd = await request.formData();
+          for (const [k, v] of fd.entries()) data[k] = typeof v === "string" ? v : "";
+        }
+        const s = (v, max) => (typeof v === "string" ? v.trim().slice(0, max) : "");
+
+        // 2) Honeypot : un robot remplit ce champ invisible -> on ignore silencieusement
+        if (s(data._honey, 20)) return json({ ok: true });
+
+        // 3) Validation + minimisation (longueurs bornées)
+        const nom = s(data.nom, 120);
+        const entreprise = s(data.entreprise, 120);
+        const email = s(data.email, 160);
+        const tel = s(data.tel, 40);
+        const sujet = s(data.sujet, 80);
+        const message = s(data.message, 4000);
+        const consent = s(data.consent, 10);
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+        if (!nom || !emailOk || !sujet || !message) return json({ ok: false, error: "invalid" }, 400);
+        if (!consent) return json({ ok: false, error: "consent" }, 400);
+        if (!env.CONTACT_EMAIL) return json({ ok: false, error: "not_configured" }, 503);
+
+        // 4) Construction du message (texte brut, UTF-8)
+        const dest = env.CONTACT_TO || "hermann.malan@inzovuafrica.com";
+        const from = env.CONTACT_FROM || "contact@inzovuafrica.com";
+        const b64 = (str) => btoa(unescape(encodeURIComponent(str)));
+        const when = new Date().toLocaleString("fr-FR", { timeZone: "Africa/Abidjan" });
+        const body = [
+          "Nouveau message reçu depuis le site inzovuafrica.com",
+          "Date : " + when,
+          "",
+          "Nom          : " + nom,
+          "Organisation : " + (entreprise || "-"),
+          "E-mail       : " + email,
+          "Téléphone    : " + (tel || "-"),
+          "Sujet        : " + sujet,
+          "",
+          "Message :",
+          message,
+          "",
+          "— Consentement au traitement : oui (formulaire de contact).",
+          "— Conservation : 3 ans après le dernier contact (registre T-01).",
+        ].join("\n");
+        const subject = "Nouveau message — site INZOVU AFRICA : " + sujet;
+        const raw = [
+          "From: INZOVU AFRICA <" + from + ">",
+          "To: <" + dest + ">",
+          "Reply-To: <" + email + ">",
+          "Subject: =?UTF-8?B?" + b64(subject) + "?=",
+          "MIME-Version: 1.0",
+          "Content-Type: text/plain; charset=UTF-8",
+          "Content-Transfer-Encoding: base64",
+          "",
+          b64(body).replace(/(.{76})/g, "$1\r\n"),
+        ].join("\r\n");
+
+        // 5) Envoi via le binding Cloudflare Email (send_email)
+        const { EmailMessage } = await import("cloudflare:email");
+        await env.CONTACT_EMAIL.send(new EmailMessage(from, dest, raw));
+        return json({ ok: true });
+      } catch (e) {
+        return json({ ok: false, error: "send_failed" }, 500);
+      }
+    }
 
     if (url.pathname === "/api/chat") {
       if (request.method !== "POST") {

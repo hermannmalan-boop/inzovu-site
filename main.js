@@ -117,9 +117,12 @@
   var y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
 
-  /* Contact form — envoi via FormSubmit (AJAX) */
+  /* Contact form — envoi vers notre Worker Cloudflare (/api/contact), sans tiers */
   var form = document.getElementById("contact-form");
   if (form) {
+    // Sujet présélectionné depuis l'URL (ex. contact.html?sujet=Demande%20de%20d%C3%A9mo)
+    var wanted = new URLSearchParams(location.search).get("sujet"), sel = form.querySelector("#sujet");
+    if (wanted && sel) { for (var i = 0; i < sel.options.length; i++) { if (sel.options[i].value === wanted) { sel.selectedIndex = i; break; } } }
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var note = form.querySelector(".form-status");
@@ -130,7 +133,7 @@
       setNote("Envoi en cours…", "var(--grey-700)");
       if (btn) { btn.disabled = true; btn.style.opacity = "0.7"; }
 
-      fetch("https://formsubmit.co/ajax/hermann.malan@inzovuafrica.com", {
+      fetch("/api/contact", {
         method: "POST",
         headers: { "Accept": "application/json" },
         body: new FormData(form)
@@ -140,6 +143,10 @@
           if (res.ok) {
             setNote("Merci ! Votre message a bien été envoyé. Notre équipe vous répondra sous 24h ouvrées.", "var(--accent-dark)");
             form.reset();
+          } else if (res.d && res.d.error === "consent") {
+            setNote("Merci de cocher la case de consentement pour que nous puissions traiter votre demande.", "#b00020");
+          } else if (res.d && res.d.error === "invalid") {
+            setNote("Veuillez vérifier les champs requis (nom, e-mail valide, sujet, message).", "#b00020");
           } else {
             setNote("Une erreur est survenue. Réessayez ou écrivez-nous à servicecommercial@inzovuafrica.com.", "#b00020");
           }
