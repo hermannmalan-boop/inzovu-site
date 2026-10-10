@@ -120,6 +120,7 @@
   /* Contact form — envoi vers notre Worker Cloudflare (/api/contact), sans tiers */
   var form = document.getElementById("contact-form");
   if (form) {
+    var tf = form.querySelector('input[name="_t"]'); if (tf) tf.value = String(Date.now());
     // Sujet présélectionné depuis l'URL (ex. contact.html?sujet=Demande%20de%20d%C3%A9mo)
     var wanted = new URLSearchParams(location.search).get("sujet"), sel = form.querySelector("#sujet");
     if (wanted && sel) { for (var i = 0; i < sel.options.length; i++) { if (sel.options[i].value === wanted) { sel.selectedIndex = i; break; } } }

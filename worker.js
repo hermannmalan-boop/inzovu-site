@@ -84,6 +84,16 @@ export default {
         // 2) Honeypot : un robot remplit ce champ invisible -> on ignore silencieusement
         if (s(data._honey, 20)) return json({ ok: true });
 
+        // Anti-spam sans tiers (pas de captcha externe : aucun transfert de données hors CI).
+        // On répond ok:true aux robots pour ne pas leur apprendre ce qui les bloque.
+        const msg0 = s(data.message, 4000), mail0 = s(data.email, 160).toLowerCase();
+        const t0 = parseInt(s(data._t, 20), 10) || 0;
+        const tooFast = !t0 || Date.now() - t0 < 3000;                  // envoyé en < 3 s ou sans JS
+        const cyrillic = /[\u0400-\u04FF]/.test(msg0 + s(data.nom, 120)); // site FR/EN uniquement
+        const linkSpam = (msg0.match(/https?:\/\//g) || []).length > 2;
+        const blockedMail = /@(mail\.ru|bk\.ru|list\.ru|inbox\.ru|yandex\.(ru|com)|rambler\.ru)$/.test(mail0);
+        if (tooFast || cyrillic || linkSpam || blockedMail) return json({ ok: true });
+
         // 3) Validation + minimisation (longueurs bornées)
         const nom = s(data.nom, 120);
         const entreprise = s(data.entreprise, 120);
